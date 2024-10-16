@@ -1,0 +1,197 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Vídeos",
+        "description": "API para o gerenciamento de vídeos",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/videos": {
+            "get": {
+                "summary": "Retrieve a list of videos",
+                "operationId": "91a3a5e7add32d9ee4fb5ad638e10d66",
+                "responses": {
+                    "200": {
+                        "description": "List of videos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Video"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new video",
+                "operationId": "de7b3eb3f2fce49c828dae36fff21116",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreVideoRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Video created successfully"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/videos/{video}": {
+            "get": {
+                "summary": "Retrieve a specific video",
+                "operationId": "98f9e24b287de42ac6e2191497775a30",
+                "parameters": [
+                    {
+                        "name": "video",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Video details"
+                    },
+                    "404": {
+                        "description": "Video not found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update an existing video",
+                "operationId": "2b47d411829224d9be1265f04692d971",
+                "parameters": [
+                    {
+                        "name": "video",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateVideoRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Video updated successfully"
+                    },
+                    "404": {
+                        "description": "Video not found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a specific video",
+                "operationId": "feaa50067693f08496f21203dc118327",
+                "parameters": [
+                    {
+                        "name": "video",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Video deleted successfully"
+                    },
+                    "404": {
+                        "description": "Video not found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Video": {
+                "title": "Video",
+                "properties": {
+                    "id": {
+                        "description": "ID of the video",
+                        "type": "integer"
+                    },
+                    "title": {
+                        "description": "Title of the video",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "Description of the video",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreVideoRequest": {
+                "title": "StoreVideoRequest",
+                "required": [
+                    "title",
+                    "description"
+                ],
+                "properties": {
+                    "title": {
+                        "description": "Title of the video",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "Description of the video",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateVideoRequest": {
+                "title": "UpdateVideoRequest",
+                "properties": {
+                    "title": {
+                        "description": "Title of the video",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "Description of the video",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
